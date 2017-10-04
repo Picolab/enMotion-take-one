@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+<title>ITB3032</title>
+<meta charset="UTF-8">
+<style type="text/css">
+body {
+  text-align: center;
+}
+div {
+  width: 256px;
+  border: 10px solid #002E5D;
+  background-image: radial-gradient(transparent,#c5af7d);
+  border-radius: 40px;
+  padding: 15px;
+}
+h2 {
+  margin-top: 0;
+}
+p.url {
+  font-size: 80%;
+  margin-bottom: 0;
+}
+</style>
+</head>
+<body>
+<div>
+<h2><span id="h2">ITB3032 Break Room</span></h2>
+<img id="qr_img" src="ITB3032.png" alt="QR code" width="128">
+<p>
+Scan to report a paper towel problem
+</p>
+<p class="url">
+http://picos.bruceatbyu.com/enMotion/<span id="url_id">ITB3032</span>
+</p>
+</div>
+<script type="text/javascript">
+(function(){
+  var parseQuery = function(s){
+    var q = {};
+    var a = s.split("&");
+    for(var i=0; i<a.length; ++i){
+      var p = a[i].split("=");
+      q[decodeURIComponent(p[0])] = decodeURIComponent(p[1] || "");
+    }
+    return q;
+  }
+  var query = parseQuery(location.search.substr(1));
+  var id = query.id;
+  var name = query.name;
+  var id_name = id + (name ? " " : "") + name;
+  document.title = id;
+  document.getElementById("h2").innerText = id_name;
+  document.getElementById("url_id").innerText = id;
+  var qr = new Image;
+  qr.onload = function(){
+    document.getElementById("qr_img").src = this.src;
+  }
+  qr.src = id + ".png";
+}());
+</script>
+</body>
+</html>
+
