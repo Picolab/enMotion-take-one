@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+<title>enMotion</title>
+<meta charset="UTF-8">
+<link rel="shortcut icon" href="favicon.ico">
+<script src="js/jquery-3.1.0.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+//ECI="TT16NfLVjtLeBhoPo8NWb8"
+//TAG=`echo "$QUERY_STRING" | grep -o "id=[A-Z]+[0-9]+[-A-Z0-9]*" | cut -d = -f 2`
+//NPE=`curl localhost:3001/sky/event/$ECI/none/tag/scanned?id=$TAG&tag_domain=enMotion`
+//<pre>$NPE</pre>
+$(function(){
+  var eci = "TT16NfLVjtLeBhoPo8NWb8";
+  var npe = location.hostname+":"+3001;
+  var query_string = location.search.substr(1);
+  var query_args = query_string.split("&");
+  if(!query_string){
+    query_args = ["id="+location.pathname.substr(1)];
+  }
+  var process_data = function(data){
+    $("pre").html("<pre>"+JSON.stringify(data)+"</pre>");
+    $("#content").html("Thank you for reporting a problem with this enMotion dispenser. Expect a repair by start of next business day."
+  };
+  for(var i=0; i<query_args.length; ++i){
+    if(query_args[i].startsWith("id=")){
+      var url = "http://"+npe+"/sky/event/"+eci+"/none/tag/scanned"
+              + "?id="+ query_args[i].substr(3)
+              + "&tag_domain=enMotion";
+      $.getJSON(url,process_data);
+      break;
+    }
+  }
+});
+</script>
+</head>
+<body>
+<!--
+<pre></pre>
+-->
+<p id="content" style="font-size:xx-large"></p>
+</body>
+</html>
