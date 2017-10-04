@@ -1,3 +1,6 @@
+# keys
+io.picolabs.slack.keys.krl
+
 # Logs
 logs
 *.log
