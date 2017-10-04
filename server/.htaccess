@@ -3,3 +3,5 @@ RewriteEngine On
 RewriteCond %{HTTP_HOST} ^picos[.] [NC]
 
 RewriteRule ^enMotion/([A-Z]+[0-9]+[-A-Z0-9]*)/?$ /cgi-bin/enMotion.cgi?id=$1 [NC,L]
+
+#RewriteRule ^enMotion/([A-Z]+[0-9]+[-A-Z0-9]*)/?$ /enMotion.html?id=$1 [NC,L]
