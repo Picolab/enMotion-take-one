@@ -5,6 +5,11 @@ ruleset io.picolabs.tag.enMotion {
         Virtual representation, digital twin, or device shadow of one enMotion paper towel dispenser.
     >>
     author "BAC"
+    use module io.picolabs.slack_keys
+    use module io.picolabs.slack alias slack
+      with team_key = keys:slack("team_key")
+           user_key = keys:slack("user_key")
+           webhook_key = keys:slack("webhook_key")
     shares __testing
   }
   global {
@@ -67,9 +72,8 @@ ruleset io.picolabs.tag.enMotion {
       message = "Problem reported";
     }
     if not already_notified then every {
-      http:post("https://hooks.slack.com/services/SLACK1/SLACK2/WEBHOOKID",
-        body = <<{ "channel": "#wovyn",>>
-             + << "text": "The paper towel dispenser at #{ent:tag_id} is not working" }>>)
+      slack:slack_notification("wovyn",
+        "The paper towel dispenser at "+ent:tag_id+" is not working")
         setting(postResult);
       send_directive("postResult", {"postResult": postResult.klog("postResult")});
     }
